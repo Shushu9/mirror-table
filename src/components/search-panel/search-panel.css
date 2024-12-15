@@ -1,0 +1,25 @@
+.search-panel {
+    margin: 20px 0;
+    padding: 15px 20px;
+    border: 2px solid #3d5a80;
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+}
+
+.search-panel-input {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid grey;
+    padding: 0 20px;
+}
+
+.search-panel-trigger {
+    cursor: pointer;
+    padding: 4px 20px;
+    font-size: 1.2rem;
+    background-color: #3d5a80;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}

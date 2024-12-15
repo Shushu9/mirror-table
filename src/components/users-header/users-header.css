@@ -1,0 +1,16 @@
+.users-list {
+    margin-top: 30px;
+    background-color: #3d5a80;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+    color: #fff;
+    max-height: 70vh;
+    overflow: auto;
+    scrollbar-width: thin;
+    padding-left: 0;
+}
+
+.user__row-head {
+    padding: 15px 20px;
+    border-bottom: 1px solid white;
+}
