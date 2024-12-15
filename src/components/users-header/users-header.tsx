@@ -1,33 +1,25 @@
 import { UserItem } from '../../types';
+import UsersHeaderItem from '../users-header-item/users-header-item';
 import './users-header.css';
-// import { UsersHeaderItem } from '../../types';
 
 type IProps = {
     data: UserItem[]
-    sortData: () => void;
+    sortData: (header: string) => void;
+    sortType: string;
 }
-
-
 
 const UsersHeader = ({ data, sortData }: IProps) => {
 
-    // const elements = data.map(item => {
-
-    //     return (
-    //         <UsersListItem
-    //             key={item.id + item.phone} //item.id не являются уникальным значением и не может быть id. 
-    //             {...item} />
-    //     )
-    // })
+    const haeders = Object.keys(data[0]).map((word, index) => {
+        if (word !== "address" && word !== "description") {
+            return <UsersHeaderItem sortData={sortData} key={index} word={word} />
+        }
+    })
 
     return (
         <thead className="users-list">
             <tr className='user__row-head'>
-                {Object.keys(data[0]).map((hd, index) => {
-                    if (hd !== "address" && hd !== "description") {
-                        return <th className='user__row-item' key={`tr-${index}`} > {hd}</th>;
-                    }
-                })}
+                {haeders}
             </tr>
         </thead >
     )

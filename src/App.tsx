@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import datas from './data.json';
-import { ISort, UserItem } from './types';
+import { UserItem } from './types';
 
 import './App.css'
 import UsersList from './components/users-list/users-list';
@@ -13,22 +13,44 @@ function App() {
   const [data, setData] = useState<null | UserItem[]>(null)
   const [activeItem, setActiveItem] = useState<null | UserItem>(null)
   const [searchFilter, setSearchFilter] = useState<string>("")
-  // const [sortType, setSortType] = useState<ISort>({ name: 'По названию ↑', sort: '-title' });
+  const [sortType, setSortType] = useState('');
 
 
   useEffect(() => {
     if (!data) {
       setData(() => datas)
-      // console.log(datas)
     }
   }, [data])
 
   const sortData = useCallback((header: string) => {
     if (data) {
-      const newdata = [...data].sort((a, b) => (a[header] > b[header] ? 1 : -1));
-      setdata(() => newdata);
+      const newdata = [...data].sort((a, b) => {
+        if (sortType !== header) {
+          // @ts-expect-error header всегда является ключом UserItem
+          if (a[header] > b[header]) {
+            return 1
+          } else {
+            return -1
+          }
+        } else {
+          // @ts-expect-error header всегда является ключом UserItem
+          if (a[header] > b[header]) {
+            return -1
+          } else {
+            return 1
+          }
+        }
+      });
+      setData(() => newdata);
     }
-  }, [data])
+
+    if (sortType !== header) {
+      setSortType(() => header)
+    } else {
+      setSortType(() => '-' + header)
+    }
+
+  }, [data, sortType])
 
   const setChosenItem = useCallback((item: UserItem) => {
     setActiveItem(() => item)
@@ -45,7 +67,7 @@ function App() {
       <div className='table__wrapper'>
         {data && data.length > 0 ?
           <table className='user__table'>
-            <UsersHeader data={data} sortData={sortData} />
+            <UsersHeader data={data} sortData={sortData} sortType={sortType} />
             <UsersList data={data} setChosenItem={setChosenItem} searchFilter={searchFilter} />
           </table>
           :

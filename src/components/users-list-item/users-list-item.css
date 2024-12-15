@@ -1,7 +1,5 @@
 .user__row {
-    /* display: flex; */
     cursor: pointer;
-    justify-content: space-between;
     padding: 15px 20px;
     border-bottom: 1px solid white;
 }

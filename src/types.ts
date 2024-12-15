@@ -14,22 +14,3 @@ export type UserAdress = {
     state: string,
     zip: string,
 }
-
-export type ISort = {
-    name: string,
-    sort: string,
-}
-
-
-export enum SortPropertyEnum {
-    ID_DESC = 'id',
-    ID_ASC = '-id',
-    FIRST_NAME_DESC = 'firstName',
-    FIRST_NAME_ASC = '-firstName',
-    LAST_NAME_DESC = 'lastName',
-    LAST_NAME_ASC = '-lastName',
-    EMAIL_DESC = 'email',
-    EMAIL_ASC = '-email',
-    PHONE_DESC = 'phone',
-    PHONE_ASC = '-phone',
-}
