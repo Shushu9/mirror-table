@@ -8,11 +8,11 @@ type IProps = {
     sortType: string;
 }
 
-const UsersHeader = ({ data, sortData }: IProps) => {
+const UsersHeader = ({ data, sortData, sortType }: IProps) => {
 
     const haeders = Object.keys(data[0]).map((word, index) => {
         if (word !== "address" && word !== "description") {
-            return <UsersHeaderItem sortData={sortData} key={index} word={word} />
+            return <UsersHeaderItem sortData={sortData} key={index} word={word} sortType={sortType} />
         }
     })
 

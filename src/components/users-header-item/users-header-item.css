@@ -1,3 +1,32 @@
-.user__row-item {
+.user__header-item {
     cursor: pointer;
+    width: 20%;
+    padding: 15px 20px;
+    text-transform: capitalize;
+}
+
+.sort-arrow {
+    margin-left: 12px;
+    opacity: 0;
+    transition: .3s;
+}
+
+.sort-arrow svg {
+    transition: .3s;
+}
+
+.user__row-item:hover .sort-arrow {
+    opacity: 1;
+}
+
+.sort-arrow-asc {
+    opacity: 1;
+}
+
+.sort-arrow-asc svg {
+    transform: rotate(180deg);
+}
+
+.sort-arrow-desc {
+    opacity: 1;
 }
