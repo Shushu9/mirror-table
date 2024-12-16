@@ -1,6 +1,6 @@
 import React from 'react';
-import './users-list-item.css';
 import { UserItem } from '../../types';
+import styled from 'styled-components';
 
 type IProps = {
     item: UserItem,
@@ -10,25 +10,44 @@ type IProps = {
 const UsersListItem: React.FC<IProps> = ({ item, setChosenItem }) => {
 
     return (
-        <tr className='user__row' onClick={() => setChosenItem(item)}>
-            <th className='user__row-item'>
+        <UserRow onClick={() => setChosenItem(item)}>
+            <UserRowItem>
                 {item.id}
-            </th>
-            <th className='user__row-item'>
+            </UserRowItem>
+            <UserRowItem>
                 {item.firstName}
-            </th>
-            <th className='user__row-item'>
+            </UserRowItem>
+            <UserRowItem>
                 {item.lastName}
-            </th>
-            <th className='user__row-item'>
+            </UserRowItem>
+            <UserRowItem>
                 {item.email}
-            </th>
-            <th className='user__row-item'>
+            </UserRowItem>
+            <UserRowItem>
                 {item.phone}
-            </th>
-        </tr>
+            </UserRowItem>
+        </UserRow>
     )
 
 }
 
 export default UsersListItem;
+
+
+const UserRow = styled.tr`
+    cursor: pointer;
+    padding: 15px 20px;
+    border-bottom: 1px solid white;
+    transition: .3s;
+    &:hover {
+        background-color: rgb(60, 106, 107);
+    }
+    &:last-child {
+        border-bottom: unset;
+    }
+`;
+
+const UserRowItem = styled.th`
+    width: 20 %;
+    padding: 15px 20px;
+`;

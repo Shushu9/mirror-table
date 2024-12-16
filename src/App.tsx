@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UserItem } from './types';
+import styled from 'styled-components';
 
-import './App.css'
 import UsersList from './components/users-list/users-list';
 import UsersHeader from './components/users-header/users-header';
 import ChosenRow from './components/chosen-row/chosen-row';
@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     axios.get<UserItem[]>('http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D')
       .then((response: AxiosResponse) => {
-        console.log(response.data);
         setData(() => response.data)
       });
   }, []);
@@ -48,21 +47,37 @@ function App() {
 
 
   return (
-    <div className='app'>
+    <AppWrap>
       <SearchPanel setFilter={setFilter} />
-      <div className='table__wrapper'>
+      <TableWrapper>
         {data && data.length > 0 ?
-          <table className='user__table'>
+          <UserTable>
             <UsersHeader data={data} sortData={sortData} sortType={sortType} />
             <UsersList data={data} setChosenItem={setChosenItem} searchFilter={searchFilter} />
-          </table>
+          </UserTable>
           :
           <div>Loading...</div>
         }
-      </div>
-      {activeItem ? <ChosenRow item={activeItem} /> : <div> Chose Row</div>}
-    </div>
+      </TableWrapper>
+      {activeItem ? <ChosenRow item={activeItem} /> : <h2> Chose Row</h2>}
+    </AppWrap>
   )
 }
 
 export default App
+
+
+const AppWrap = styled.div`
+  margin: 0 auto;
+  max-width: 1000px;
+`;
+
+const UserTable = styled.table`
+  width: 100 %;
+  border-collapse: collapse;
+`;
+
+const TableWrapper = styled.div`
+  border-radius: 8px;
+  overflow: hidden;
+`;

@@ -1,6 +1,6 @@
+import styled from 'styled-components';
 import { UserItem } from '../../types';
 import UsersHeaderItem from '../users-header-item/users-header-item';
-import './users-header.css';
 
 type IProps = {
     data: UserItem[]
@@ -17,12 +17,29 @@ const UsersHeader = ({ data, sortData, sortType }: IProps) => {
     })
 
     return (
-        <thead className="users-list">
-            <tr className='user__row-head'>
+        <UsersList>
+            <UserRowHead>
                 {haeders}
-            </tr>
-        </thead >
+            </UserRowHead>
+        </UsersList >
     )
 }
 
 export default UsersHeader;
+
+const UsersList = styled.thead`
+    margin-top: 30px;
+    background-color: #3d5a80;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+    color: #fff;
+    max-height: 70vh;
+    overflow: auto;
+    scrollbar-width: thin;
+    padding-left: 0;
+`;
+
+const UserRowHead = styled.tr`
+    padding: 15px 20px;
+    border-bottom: 1px solid white;
+`;

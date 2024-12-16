@@ -1,7 +1,7 @@
 import UsersListItem from "../users-list-item/users-list-item";
 
-import './users-list.css';
 import { UserItem } from '../../types';
+import { styled } from "styled-components";
 
 type IProps = {
     data: UserItem[],
@@ -27,10 +27,22 @@ const UsersList = ({ data, setChosenItem, searchFilter }: IProps) => {
     }).filter((i) => i !== undefined)
 
     return (
-        <tbody className="users-list">
-            {elements && elements.length > 0 ? elements : <div className="no-results"> NOTHIG FOUND</div>}
-        </tbody>
+        <UserList>
+            {elements && elements.length > 0 ? elements : <NoResult> NOTHIG FOUND</NoResult>}
+        </UserList>
     )
 }
 
 export default UsersList;
+
+
+const UserList = styled.tbody`
+    background-color: #3d5a80;
+    color: #fff;
+`;
+
+const NoResult = styled.tr`
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+`;

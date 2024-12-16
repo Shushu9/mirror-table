@@ -1,6 +1,6 @@
 import React from 'react';
-import './chosen-row.css';
 import { UserItem } from '../../types';
+import { styled } from 'styled-components';
 
 type IProps = {
     item: UserItem,
@@ -9,24 +9,37 @@ type IProps = {
 const ChosenRow: React.FC<IProps> = ({ item }) => {
 
     return (
-        <div className='chosen-row'>
-            <h1 className='chosen-row__title'>
+        <ChosenWrap>
+            <h1>
                 {item.firstName + ' ' + item.lastName}
             </h1>
-            <a className='chosen-row__link' href={"mailto:" + item.email}>
+            <ChosenLink href={"mailto:" + item.email}>
                 Email: {item.email}
-            </a>
-            <a className='chosen-row__link' href={"tel:" + item.phone}>
+            </ChosenLink>
+            <ChosenLink href={"tel:" + item.phone}>
                 Phone: {item.phone}
-            </a>
+            </ChosenLink>
             <address>
                 Address: {item.address.streetAddress + ' ,' + item.address.city + ' ,' + item.address.state + ' ,' + item.address.zip}
             </address>
             <p>
                 Info: {item.description}
             </p>
-        </div>
+        </ChosenWrap>
     )
 }
 
 export default ChosenRow;
+
+const ChosenWrap = styled.div`
+    margin-top: 20px;
+    padding: 15px 20px;
+    border: 2px solid #3d5a80;
+    border-radius: 8px
+`;
+
+const ChosenLink = styled.a`
+    display: block;
+    color: black;
+    text-decoration: none;
+`;
