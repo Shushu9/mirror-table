@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import datas from './data.json';
 import { UserItem } from './types';
 
 import './App.css'
@@ -7,6 +6,8 @@ import UsersList from './components/users-list/users-list';
 import UsersHeader from './components/users-header/users-header';
 import ChosenRow from './components/chosen-row/chosen-row';
 import SearchPanel from './components/search-panel/search-panel';
+import axios, { AxiosResponse } from 'axios';
+import sortRowsData from './utils/sort-rows-data';
 
 
 function App() {
@@ -15,33 +16,18 @@ function App() {
   const [searchFilter, setSearchFilter] = useState<string>("")
   const [sortType, setSortType] = useState('');
 
-
   useEffect(() => {
-    if (!data) {
-      setData(() => datas)
-    }
-  }, [data])
+    axios.get<UserItem[]>('http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D')
+      .then((response: AxiosResponse) => {
+        console.log(response.data);
+        setData(() => response.data)
+      });
+  }, []);
+
 
   const sortData = useCallback((header: string) => {
     if (data) {
-      const newdata = [...data].sort((a, b) => {
-        if (sortType !== header) {
-          // @ts-expect-error header всегда является ключом UserItem
-          if (a[header] > b[header]) {
-            return 1
-          } else {
-            return -1
-          }
-        } else {
-          // @ts-expect-error header всегда является ключом UserItem
-          if (a[header] > b[header]) {
-            return -1
-          } else {
-            return 1
-          }
-        }
-      });
-      setData(() => newdata);
+      setData(() => sortRowsData(header, data, sortType));
     }
 
     if (sortType !== header) {
